@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel de Campanhas - Suprimix</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    background:#f4f6f9;
+}
+
+header{
+    background:#1f2937;
+    color:white;
+    padding:20px;
+    font-size:20px;
+    font-weight:bold;
+}
+
+.container{
+    padding:30px;
+}
+
+.calendar{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:15px;
+}
+
+.day{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    text-align:center;
+    cursor:pointer;
+    box-shadow:0 2px 6px rgba(0,0,0,0.1);
+    transition:0.2s;
+}
+
+.day:hover{
+    transform:scale(1.03);
+}
+
+.future{ background:#d1d5db; }
+.active{ background:#f97316; color:white; }
+.finished{ background:#10b981; color:white; }
+
+.modal{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.5);
+    display:none;
+    justify-content:center;
+    align-items:center;
+}
+
+.modal-content{
+    background:white;
+    width:90%;
+    max-width:900px;
+    padding:30px;
+    border-radius:12px;
+}
+
+.close{
+    float:right;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.stats{
+    display:flex;
+    gap:20px;
+    margin-top:20px;
+}
+
+.card{
+    flex:1;
+    padding:15px;
+    border-radius:8px;
+    color:white;
+    text-align:center;
+}
+
+.green{ background:#10b981; }
+.orange{ background:#f97316; }
+.red{ background:#ef4444; }
+.gray{ background:#9ca3af; }
+
+.progress{
+    margin-top:20px;
+    background:#e5e7eb;
+    border-radius:8px;
+    overflow:hidden;
+}
+
+.progress-bar{
+    height:20px;
+    background:#3b82f6;
+    width:40%;
+}
+
+.clients{
+    margin-top:30px;
+    max-height:300px;
+    overflow-y:auto;
+}
+
+.client{
+    padding:10px;
+    margin-bottom:8px;
+    border-radius:6px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    color:white;
+}
+
+button{
+    padding:6px 10px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.forward{
+    background:white;
+    color:black;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+Painel de Campanhas - Suprimix
+</header>
+
+<div class="container">
+
+<h2>Calendário - Abril 2026</h2>
+
+<div class="calendar">
+
+<div class="day future" onclick="openCampaign()">1</div>
+<div class="day future" onclick="openCampaign()">2</div>
+<div class="day finished" onclick="openCampaign()">3</div>
+<div class="day active" onclick="openCampaign()">4</div>
+<div class="day">5</div>
+<div class="day">6</div>
+<div class="day">7</div>
+
+</div>
+</div>
+
+<div class="modal" id="campaignModal">
+<div class="modal-content">
+
+<span class="close" onclick="closeCampaign()">X</span>
+
+<h2>Campanha: Papel Toalha Premium</h2>
+<p>Total de clientes: 400</p>
+<p>Envio automático: 100 por dia (4 dias)</p>
+
+<div class="progress">
+<div class="progress-bar"></div>
+</div>
+
+<div class="stats">
+<div class="card green">38 Interessados</div>
+<div class="card orange">22 Sem Interesse</div>
+<div class="card red">5 Não Receber</div>
+<div class="card gray">55 Aguardando</div>
+</div>
+
+<div class="clients">
+
+<div class="client green">
+Cliente João - 48999990001
+<button class="forward" onclick="forwardLead('João')">Encaminhar</button>
+</div>
+
+<div class="client orange">
+Cliente Maria - 48999990002
+</div>
+
+<div class="client red">
+Cliente Pedro - 48999990003
+</div>
+
+<div class="client gray">
+Cliente Ana - 48999990004
+</div>
+
+</div>
+
+</div>
+</div>
+
+<script>
+function openCampaign(){
+    document.getElementById('campaignModal').style.display='flex';
+}
+
+function closeCampaign(){
+    document.getElementById('campaignModal').style.display='none';
+}
+
+function forwardLead(nome){
+    const mensagem = `Campanha Papel Toalha Premium - Cliente ${nome} demonstrou interesse.`;
+    const numeroVendedora = "5548999990000";
+    window.open(`https://wa.me/${numeroVendedora}?text=${encodeURIComponent(mensagem)}`, '_blank');
+}
+</script>
+
+</body>
+</html>
